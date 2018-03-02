@@ -1,0 +1,29 @@
+{
+  "name": "lusiweb/botman",
+  "description": "Lusiweb Botman",
+  "type": "magento2-module",
+  "version": "1.0.1",
+  "require": {
+    "php": "~5.6.5|7.0.2|7.0.4|~7.0.6"
+  },
+  "license": "OSL-3.0, AFL-3.0",
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Lusiweb\\Botman\\": ""
+    }
+  },
+  "authors": [
+    {
+      "name": "Lusiweb",
+      "email": "contact@lusiweb.io",
+      "homepage": "https://lusiweb.io"
+    }
+  ],
+  "repositories": {
+    "type": "vcs",
+    "url": "https://github.com/lusitaniaweb/m2-module-botman"
+  }
+}
