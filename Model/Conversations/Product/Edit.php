@@ -1,11 +1,11 @@
 <?php
-namespace Lusiweb\Botman\Console\Command;
+namespace Lusiweb\Botman\Model\Conversations\Product;
 
 use BotMan\BotMan\Messages\Conversations\Conversation;
 
 /**
  * Class Edit
- * @package Lusiweb\Botman\Console\Command
+ * @package Lusiweb\Botman\Model\Conversations\Product
  */
 class Edit extends Conversation
 {

@@ -9,6 +9,7 @@ use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Drivers\DriverManager;
 use BotMan\Drivers\Slack\SlackRTMDriver;
 use Lusiweb\Botman\Helper\Data;
+use Lusiweb\Botman\Model\Conversations\Product\Create;
 
 /**
  * Class Deploy
@@ -20,15 +21,19 @@ class Deploy extends Command
      * @var Data
      */
     protected $helper;
+    protected $createConv;
 
     /**
      * Deploy constructor.
      * @param Data $helper
+     * @param Create $createConv
      */
     public function __construct(
-        Data $helper
+        Data $helper,
+        Create $createConv
     ) {
         $this->helper = $helper;
+        $this->createConv = $createConv;
 
         parent::__construct();
     }
@@ -57,7 +62,7 @@ class Deploy extends Command
             ], $loop);
 
             $botMan->hears('test', function ($bot) {
-                $bot->reply("Thanks");
+                $bot->startConversation($this->createConv);
             });
             $botMan->fallback(function ($bot) {
                 $bot->reply("Sorry I'm buggy now!");
