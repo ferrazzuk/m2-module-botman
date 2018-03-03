@@ -1,6 +1,8 @@
 <?php
 namespace Lusiweb\Botman\Console\Command;
 
+use Magento\Framework\App\Area;
+use Magento\Framework\App\State;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -22,18 +24,22 @@ class Deploy extends Command
      */
     protected $helper;
     protected $createConv;
+    protected $appState;
 
     /**
      * Deploy constructor.
      * @param Data $helper
      * @param Create $createConv
+     * @param State $appState
      */
     public function __construct(
         Data $helper,
-        Create $createConv
+        Create $createConv,
+        State $appState
     ) {
         $this->helper = $helper;
         $this->createConv = $createConv;
+        $this->appState = $appState;
 
         parent::__construct();
     }
@@ -52,6 +58,7 @@ class Deploy extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->appState->setAreaCode(Area::AREA_ADMINHTML);
         if ($this->helper->isEnabled() && $token = $this->helper->getBotToken()) {
             DriverManager::loadDriver(SlackRTMDriver::class);
             $loop   = Factory::create();
