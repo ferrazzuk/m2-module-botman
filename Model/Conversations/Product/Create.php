@@ -1,49 +1,43 @@
 <?php
 namespace Lusiweb\Botman\Model\Conversations\Product;
 
-use BotMan\BotMan\Messages\Conversations\Conversation;
-use Magento\Catalog\Api\ProductRepositoryInterface;
-use Magento\Catalog\Api\Data\ProductInterfaceFactory;
-use Magento\Catalog\Api\Data\ProductInterface;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use Magento\Framework\Exception\CouldNotSaveException;
+use Magento\Framework\Exception\InputException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Catalog\Model\Product\Type;
+use Lusiweb\Botman\Model\Conversations\ConversationAbstract;
+use Magento\Framework\Exception\StateException;
 
 /**
  * Class Create
  * @package Lusiweb\Botman\Model\Conversations\Product
  */
-class Create extends Conversation
+class Create extends ConversationAbstract
 {
     /**
-     * @var ProductRepositoryInterface
-     */
-    protected $productRepo;
-
-    /**
-     * @var ProductInterfaceFactory
-     */
-    protected $productFact;
-
-    /**
-     * @var ProductInterface
-     */
-    protected $product;
-
-    /**
-     * Create constructor.
+     * Saves product type.
      *
-     * @param ProductRepositoryInterface $repository
-     * @param ProductInterfaceFactory $factory
+     * @return void
      */
-    public function __construct(
-        ProductRepositoryInterface $repository,
-        ProductInterfaceFactory $factory
-    ) {
-        $this->productRepo = $repository;
-        $this->productFact = $factory;
+    public function askType()
+    {
+        // @todo 1. Logic
+        // @todo 2. Send list of product types.
+        // @todo 3. Capture user selection
     }
+
+    /**
+     * Saves product attributes set.
+     *
+     * @return void
+     */
+    public function askAttributeSet()
+    {
+        // @todo 1. logic
+        // @todo 2. Send list of attributes sets.
+    }
+
 
     /**
      * Asks for sku.
@@ -67,8 +61,14 @@ class Create extends Conversation
         });
     }
 
+    /**
+     * Saves product name.
+     *
+     * @return void
+     */
     public function askName()
     {
+        // @todo 1. validation.
         $this->ask('Enter a product name', function (Answer $answer) {
             $name = $answer->getText();
             $this->product->setName($name);
@@ -76,8 +76,14 @@ class Create extends Conversation
         });
     }
 
+    /**
+     * Saves product price.
+     *
+     * @return void
+     */
     public function askPrice()
     {
+        // @todo 1. validation
         $this->ask('Enter a product price', function (Answer $answer) {
             $price = $answer->getText();
             $this->product->setPrice(floatval($price));
@@ -85,6 +91,23 @@ class Create extends Conversation
         });
     }
 
+    /**
+     * Saves product images.
+     *
+     * @return void
+     */
+    public function askForProductImages()
+    {
+        // @todo 1. logic
+        // @todo 2. Image contains image attribute
+        // @todo 3. Name format should match [Attribute|Order.jpg]
+    }
+
+    /**
+     * Saves product.
+     *
+     * @return void
+     */
     public function askToSave()
     {
         $this->ask("Would you like to save product?", function (Answer $answer) {
@@ -97,9 +120,14 @@ class Create extends Conversation
                     $this->say("Product saved.");
                 } catch (CouldNotSaveException $exception) {
                     $this->say($exception->getMessage());
+                } catch (StateException $exception) {
+                    $this->say($exception->getMessage());
+                } catch (InputException $exception) {
+                    $this->say($exception->getMessage());
                 }
 
             } else {
+                // @todo 1. proper message
                 $this->say("Sorry to hear that, goodbye.");
             }
         });

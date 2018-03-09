@@ -74,7 +74,6 @@ class Deploy extends Command
             $botMan->fallback(function ($bot) {
                 $bot->reply("Sorry I'm buggy now!");
             });
-
             $loop->run();
         }
     }
