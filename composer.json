@@ -6,7 +6,7 @@
   "require": {
     "php": "~5.6.5|7.0.2|7.0.4|~7.0.6",
     "botman/botman": "^2.3",
-    "botman/driver-slack": "^2.1",
+    "botman/driver-slack": "^2.3",
     "mpociot/slack-client": "^1.0"
   },
   "license": "OSL-3.0, AFL-3.0",

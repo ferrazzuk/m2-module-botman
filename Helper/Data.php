@@ -40,7 +40,7 @@ class Data extends AbstractHelper
             self::XML_BOT_TOKEN
         );
 
-        if (!empty(strval($value))) {
+        if (!empty(strval(trim($value)))) {
             return $value;
         }
 
